@@ -5691,6 +5691,7 @@ GameObject:
   - component: {fileID: 1149199953}
   - component: {fileID: 1149199952}
   - component: {fileID: 1149199956}
+  - component: {fileID: 1149199957}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -5856,6 +5857,19 @@ MonoBehaviour:
   turnDirection: 0
   invulnerabilityTime: 3
   respawnDelay: 2
+  isInvulnerable: 0
+--- !u!114 &1149199957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149199951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 280c0d62603bf1f4a9bcfad941d8a380, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1166702670
 GameObject:
   m_ObjectHideFlags: 0

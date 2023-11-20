@@ -4,7 +4,7 @@ public class Bullet : MonoBehaviour
 {
 
     public float speed = 500f;
-    public float maxLifeTime = 10f;
+    public float maxLifeTime = 1f;
     private Rigidbody2D rb;
 
     private void Awake()
