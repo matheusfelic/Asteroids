@@ -1,5 +1,5 @@
 using UnityEngine;
-public class AsteroidFactory : MonoBehaviour, IAsteroidFactory
+public class AsteroidFactory : MonoBehaviour
 {
     [SerializeField]
     private GameObject asteroidPrefab;
@@ -9,6 +9,9 @@ public class AsteroidFactory : MonoBehaviour, IAsteroidFactory
         GameObject asteroidObject = Instantiate(asteroidPrefab, position, rotation);
         Asteroid asteroid = asteroidObject.GetComponent<Asteroid>();
         asteroid.Initialize(size, trajectory);
+        asteroid.size = size;
+        asteroid.SetTrajectory(trajectory);
+
         return asteroid;
     }
 }

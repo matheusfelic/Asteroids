@@ -1,5 +1,5 @@
 using UnityEngine;
-public class PlayerCollisionHandler : IPlayerCollisionHandler
+public class PlayerCollisionHandler
 {
     private readonly Player player;
 
@@ -8,12 +8,12 @@ public class PlayerCollisionHandler : IPlayerCollisionHandler
         this.player = player;
     }
 
-    public void TurnOffCollisions()
+    public void DisableCollisions()
     {
         player.gameObject.layer = LayerMask.NameToLayer("IgnoreCollisions");
     }
 
-    public void TurnOnCollisions()
+    public void EnableCollisions()
     {
         player.gameObject.layer = LayerMask.NameToLayer("Player");
     }

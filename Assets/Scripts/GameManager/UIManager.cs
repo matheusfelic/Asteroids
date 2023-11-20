@@ -1,7 +1,6 @@
-using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : IUIManager
+public class UIManager
 {
     private Text scoreText;
     private Text livesText;

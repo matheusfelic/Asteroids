@@ -12,15 +12,14 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Project(Vector2 direction)
+    public void Launch(Vector2 direction)
     {
         rb.AddForce(direction * speed);
 
         Destroy(gameObject, maxLifeTime);
     }
 
-    //every time there's collision
-    private void OnCollisionEnter2D(Collision2D collision) 
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         Destroy(gameObject);
     }

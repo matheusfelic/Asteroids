@@ -4,9 +4,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private IPlayerInputHandler inputHandler;
-    private IPlayerShooter shooter;
-    private IPlayerCollisionHandler collisionHandler;
+    private PlayerInputHandler inputHandler;
+    private PlayerProjectileLauncher shooter;
+    private PlayerCollisionHandler collisionHandler;
+    private PlayerPhysicsHandler physicsHandler;
 
     [SerializeField]
     private Bullet bulletPrefab;
@@ -22,16 +23,18 @@ public class Player : MonoBehaviour
     public bool isInvulnerable;
     private Coroutine invulnerabilityCoroutine;
 
-    private void Awake() {
+    private void Awake()
+    {
         rb = GetComponent<Rigidbody2D>();
         inputHandler = new PlayerInputHandler();
         collisionHandler = new PlayerCollisionHandler(this);
-        shooter = new PlayerShooter(bulletPrefab, transform, collisionHandler);
+        shooter = new PlayerProjectileLauncher(bulletPrefab, transform, collisionHandler);
+        physicsHandler = new PlayerPhysicsHandler();
     }
 
-     private void OnEnable()
+    private void OnEnable()
     {
-        collisionHandler.TurnOffCollisions();
+        collisionHandler.DisableCollisions();
         isInvulnerable = true;
         invulnerabilityCoroutine = StartCoroutine(TurnOnCollisionsAfterDelay(invulnerabilityTime));
     }
@@ -39,7 +42,7 @@ public class Player : MonoBehaviour
     private IEnumerator TurnOnCollisionsAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        collisionHandler.TurnOnCollisions();
+        collisionHandler.EnableCollisions();
         isInvulnerable = false;
     }
 
@@ -51,16 +54,22 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     private void Update()
     {
-       inputHandler.HandleInput(this, shooter);
+        InputData input = inputHandler.GetInput();
+        turnDirection = (input.horizontalInput < 0) ? 1f : (input.horizontalInput > 0) ? -1f : 0f;
+        thrusting = input.verticalInput > 0;
+
+        if (input.isShootPressed)
+        {
+            shooter.Shoot();
+        }
     }
 
-    private void FixedUpdate() 
+    private void FixedUpdate()
     {
-        inputHandler.ApplyMovement(rb, thrustSpeed, this);
-        inputHandler.ApplyRotation(rb, rotationSpeed, this);
+        physicsHandler.ApplyMovement(rb, thrustSpeed, this);
+        physicsHandler.ApplyRotation(rb, rotationSpeed, this);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -68,7 +77,8 @@ public class Player : MonoBehaviour
         collisionHandler.HandleCollision(collision, rb);
     }
 
-    public void SetBulletPrefab(Bullet bullet) {
+    public void SetBulletPrefab(Bullet bullet)
+    {
         bulletPrefab = bullet;
     }
 }

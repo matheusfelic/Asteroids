@@ -1,11 +1,11 @@
 using UnityEngine;
-public class PlayerShooter : IPlayerShooter
+public class PlayerProjectileLauncher
 {
     private readonly Bullet bulletPrefab;
     private readonly Transform playerTransform;
-    private readonly IPlayerCollisionHandler collisionHandler;
+    private readonly PlayerCollisionHandler collisionHandler;
 
-    public PlayerShooter(Bullet bulletPrefab, Transform playerTransform, IPlayerCollisionHandler collisionHandler)
+    public PlayerProjectileLauncher(Bullet bulletPrefab, Transform playerTransform, PlayerCollisionHandler collisionHandler)
     {
         this.bulletPrefab = bulletPrefab;
         this.playerTransform = playerTransform;
@@ -17,7 +17,7 @@ public class PlayerShooter : IPlayerShooter
         if (collisionHandler.AreCollisionsEnabled())
         {
             Bullet bullet = Object.Instantiate(bulletPrefab, playerTransform.position, playerTransform.rotation);
-            bullet.Project(playerTransform.up);
+            bullet.Launch(playerTransform.up);
         }
     }
 }

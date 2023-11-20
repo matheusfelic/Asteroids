@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour, IGameStateManager
+public class GameManager : MonoBehaviour
 {
      public static GameManager Instance { get; private set; }
-     private IAsteroidFactory asteroidFactory;
-     private IUIManager uiManager;
+     private AsteroidFactory asteroidFactory;
+     private UIManager uiManager;
 
      [SerializeField]
      private Player player;
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour, IGameStateManager
      [SerializeField]
      private Text livesText;
      [SerializeField]
-     private GameObject asteroidFactoryPrefab; // Reference to the AsteroidFactory prefab
+     private GameObject asteroidFactoryPrefab;
 
      private int lives;
      private int score;
@@ -34,10 +34,10 @@ public class GameManager : MonoBehaviour, IGameStateManager
           uiManager = new UIManager(scoreText, livesText);
 
           GameObject factoryObject = Instantiate(asteroidFactoryPrefab);
-          asteroidFactory = factoryObject.GetComponent<IAsteroidFactory>();
+          asteroidFactory = factoryObject.GetComponent<AsteroidFactory>();
      }
 
-     public IAsteroidFactory GetAsteroidFactory()
+     public AsteroidFactory GetAsteroidFactory()
      {
           return asteroidFactory;
      }
@@ -103,7 +103,8 @@ public class GameManager : MonoBehaviour, IGameStateManager
           UpdateScoreText();
      }
 
-     private void UpdateScoreText() {
+     private void UpdateScoreText()
+     {
           uiManager.SetScore(score);
      }
 
@@ -116,7 +117,7 @@ public class GameManager : MonoBehaviour, IGameStateManager
      private void UpdateLivesText()
      {
           uiManager.SetLives(lives);
-     } 
+     }
 
      public void OnAsteroidDestroyed(Asteroid asteroid)
      {
@@ -134,7 +135,6 @@ public class GameManager : MonoBehaviour, IGameStateManager
      {
           player.gameObject.SetActive(false);
 
-          //playing explosion animation
           PlayExplosion(player.transform.position);
 
           UpdateLivesAfterDeath();
