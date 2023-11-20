@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -7,16 +5,16 @@ public class Bullet : MonoBehaviour
 
     public float speed = 500f;
     public float maxLifeTime = 10f;
-    private Rigidbody2D _rigidbody;
+    private Rigidbody2D rb;
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     public void Project(Vector2 direction)
     {
-        _rigidbody.AddForce(direction * speed);
+        rb.AddForce(direction * speed);
 
         Destroy(gameObject, maxLifeTime);
     }

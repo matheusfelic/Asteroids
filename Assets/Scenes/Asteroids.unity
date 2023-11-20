@@ -5554,6 +5554,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &772581814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 772581816}
+  - component: {fileID: 772581815}
+  m_Layer: 0
+  m_Name: AsteroidFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &772581815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772581814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bd8f61af64c4df438299c90359c742d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asteroidPrefab: {fileID: 2576209581830690688, guid: ecbb3b75ceb0db641bfbfe5fa3409848, type: 3}
+--- !u!4 &772581816
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772581814}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1042355037
 GameObject:
   m_ObjectHideFlags: 0
@@ -5806,7 +5851,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: -7974073104348358779, guid: 93785bcecd0ddfb40b689c3749bf168d, type: 3}
   thrustSpeed: 1
-  rotationSpeed: 1
+  thrusting: 0
+  rotationSpeed: 0.35
+  turnDirection: 0
   invulnerabilityTime: 3
   respawnDelay: 2
 --- !u!1 &1166702670
@@ -6299,6 +6346,7 @@ MonoBehaviour:
   gameOverUI: {fileID: 1320334378}
   scoreText: {fileID: 1042355039}
   livesText: {fileID: 1454134951}
+  asteroidFactoryPrefab: {fileID: 772581814}
 --- !u!4 &1599008829
 Transform:
   m_ObjectHideFlags: 0
@@ -6323,7 +6371,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1674456541}
-  - component: {fileID: 1674456540}
+  - component: {fileID: 1674456542}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -6331,23 +6379,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1674456540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1674456539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14b6127441a0f734f9bb14f4f2f2075e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  asteroidPrefab: {fileID: -349554615640789915, guid: ecbb3b75ceb0db641bfbfe5fa3409848, type: 3}
-  trajectoryVariance: 15
-  spawnRate: 2
-  spawnAmount: 1
-  spawnDistance: 15
 --- !u!4 &1674456541
 Transform:
   m_ObjectHideFlags: 0
@@ -6363,6 +6394,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1674456542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674456539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b6127441a0f734f9bb14f4f2f2075e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asteroidFactoryPrefab: {fileID: 772581814}
+  trajectoryVariance: 15
+  spawnRate: 2
+  spawnAmount: 1
+  spawnDistance: 15
 --- !u!1 &2066102972
 GameObject:
   m_ObjectHideFlags: 0
@@ -6453,3 +6501,4 @@ SceneRoots:
   - {fileID: 250789841}
   - {fileID: 1500309182}
   - {fileID: 480318598}
+  - {fileID: 772581816}

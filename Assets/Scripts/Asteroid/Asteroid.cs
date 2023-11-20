@@ -8,22 +8,24 @@ public class Asteroid : MonoBehaviour
     private Sprite[] sprites;
 
     public float size = 1f;
-    public float minSize = 0.35f;
-    public float maxSize = 1.65f;
+    public static float minSize = 0.35f;
+    public static float maxSize = 1.65f;
     public float speed = 50f;
     public float maxLifeTime = 30f;
     private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody;
+    private IAsteroidFactory asteroidFactory;
 
-    void Awake()
+    public void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     // Start is called before the first frame update
-    void Start()
+    public void Initialize(float size, Vector2 trajectory)
     {
+        asteroidFactory = GameManager.Instance.GetAsteroidFactory();
         _spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
 
         //randomly rotating the sprites
@@ -33,6 +35,7 @@ public class Asteroid : MonoBehaviour
         _rigidbody.mass = size;
 
         Destroy(gameObject, maxLifeTime);
+        SetTrajectory(trajectory);
     }
 
     public void SetTrajectory(Vector2 direction) 
@@ -59,12 +62,7 @@ public class Asteroid : MonoBehaviour
         {
             //offsetting the position of new spawns
             Vector2 position = transform.position;
-            position += Random.insideUnitCircle * 0.5f;
-
-            //creating asteriod part with proportional size
-            Asteroid part = Instantiate(this, position, transform.rotation);
-            part.size = size / parts;
-            part.SetTrajectory(Random.insideUnitCircle.normalized);
+            Asteroid part = asteroidFactory.CreateAsteroid(position, transform.rotation, size / parts, Random.insideUnitCircle.normalized);
         }
     }
 
